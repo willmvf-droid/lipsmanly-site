@@ -6,7 +6,7 @@
 <title>Lips Manly</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Changa+One&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One&family=Figtree:wght@400;500;600;700&display=swap');
 
 :root{
   --bg:#090909;
@@ -23,7 +23,7 @@ html{scroll-behavior:smooth;}
 
 body{
   margin:0;
-  font-family:'Cormorant Garamond', Georgia, serif;
+  font-family:'Figtree', Arial, sans-serif;
   background:
     radial-gradient(circle at top, rgba(201,162,79,0.12), transparent 30%),
     linear-gradient(180deg,#0b0b0b 0%,#080808 100%);
@@ -109,18 +109,20 @@ body{
 .tagline-main span:nth-child(3){animation-delay:1.1s;}
 
 .tagline-sub{
-  font-size:clamp(24px, 3vw, 34px);
-  font-style:italic;
+  font-size:clamp(22px, 3vw, 30px);
+  font-weight:600;
   margin-top:16px;
   color:var(--gold-soft);
+  letter-spacing:0.5px;
 }
 
 .venue-line{
   margin:18px auto 0;
-  font-size:24px;
+  font-size:20px;
   color:var(--muted);
   max-width:860px;
-  line-height:1.25;
+  line-height:1.45;
+  letter-spacing:0.3px;
 }
 
 .buttons{margin-top:28px;}
@@ -135,6 +137,7 @@ body{
   letter-spacing:2px;
   text-transform:uppercase;
   font-size:15px;
+  font-weight:700;
   background:rgba(201,162,79,0.22);
   transition:all 0.25s ease;
 }
@@ -231,14 +234,17 @@ h2{
 }
 
 p{
-  font-size:25px;
-  line-height:1.3;
+  font-size:21px;
+  line-height:1.55;
   margin:10px auto;
+  max-width:760px;
+  color:#f0e4c8;
 }
 
 .socials{
   margin-top:25px;
-  font-size:24px;
+  font-size:21px;
+  line-height:1.5;
 }
 
 .email-link{
@@ -254,8 +260,9 @@ p{
 
 .footer{
   margin-top:40px;
-  font-size:18px;
+  font-size:16px;
   color:#c7b88a;
+  letter-spacing:0.4px;
 }
 
 /* animations */
@@ -302,7 +309,11 @@ p{
   p,
   .venue-line,
   .socials{
-    font-size:20px;
+    font-size:18px;
+  }
+
+  .tagline-sub{
+    font-size:22px;
   }
 }
 </style>
@@ -331,7 +342,7 @@ p{
     </div>
 
     <div class="venue-line">
-      Playing regularly at Red Bar, Papa Surf, Stinky's Bait Shack, AJ's, Juana's and beyond.
+      Live across the Gulf Coast at Red Bar, Papa Surf, Stinky's, AJ's, Juana's and more.
     </div>
 
     <div class="buttons">
