@@ -43,7 +43,7 @@ body{
 
 .marquee{
   position:relative;
-  padding:18px;
+  padding:10px;
   border-radius:34px;
   background:linear-gradient(180deg, var(--marquee-red) 0%, var(--marquee-red-dark) 100%);
   box-shadow:
@@ -54,7 +54,7 @@ body{
 .marquee-inner{
   position:relative;
   border-radius:24px;
-  padding:42px 46px 36px;
+  padding:34px 42px 30px;
   background:linear-gradient(180deg,#18110d 0%,#0d0b09 100%);
   box-shadow:
     inset 0 0 0 2px var(--gold),
@@ -64,7 +64,7 @@ body{
 
 .marquee-bulbs{
   position:absolute;
-  inset:12px;
+  inset:10px;
   border-radius:18px;
   pointer-events:none;
 }
@@ -93,16 +93,12 @@ body{
          drop-shadow(0 0 10px rgba(255,208,70,0.6));
 }
 
-/* LOGO */
-
 .logo{
-  max-width:440px;
-  width:82%;
+  max-width:430px;
+  width:80%;
   margin:0 auto 16px;
   display:block;
 }
-
-/* HEADLINE */
 
 .tagline-main{
   font-family:'Changa One', Georgia, serif;
@@ -118,16 +114,15 @@ body{
   display:block;
 }
 
-/* SUBHEAD */
-
 .tagline-sub{
   font-size:clamp(22px,3vw,28px);
   font-weight:600;
   margin-top:16px;
   color:var(--gold-soft);
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
 }
-
-/* VENUE TEXT */
 
 .venue-line{
   margin:18px auto 0;
@@ -140,13 +135,17 @@ body{
 /* BUTTONS */
 
 .buttons{
-  margin-top:26px;
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
 }
 
 .button{
   display:inline-block;
   padding:12px 24px;
-  margin:8px;
+  margin:0;
   border:2px solid var(--gold);
   border-radius:999px;
   color:var(--cream);
@@ -157,7 +156,7 @@ body{
   font-weight:700;
   background:rgba(201,162,79,0.22);
   transition:all .25s ease;
-  max-width:320px;
+  min-width:250px;
 }
 
 .button:hover{
@@ -165,7 +164,7 @@ body{
   color:#111;
 }
 
-/* HERO PHOTO */
+/* HERO PHOTO OUTSIDE MARQUEE */
 
 .hero-photo{
   width:100%;
@@ -175,8 +174,10 @@ body{
 }
 
 .hero-photo-wrap{
-  margin-top:38px;
-  padding:12px;
+  margin-top:26px;
+  background:linear-gradient(180deg, rgba(201,162,79,0.08), rgba(255,255,255,0.02));
+  padding:14px;
+  border:1px solid rgba(201,162,79,0.35);
   border-radius:14px;
 }
 
@@ -187,6 +188,7 @@ body{
   padding:26px 18px 32px;
   border:1px solid rgba(201,162,79,0.34);
   border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
 }
 
 h2{
@@ -249,16 +251,14 @@ h2{
   max-height:100%;
 }
 
-/* BODY TEXT */
+/* TEXT */
 
 p{
   font-size:20px;
   line-height:1.55;
   margin:10px auto;
-  max-width:640px;
+  max-width:760px;
 }
-
-/* SOCIAL */
 
 .socials{
   margin-top:25px;
@@ -280,9 +280,27 @@ p{
 /* MOBILE */
 
 @media (max-width:760px){
+  .container{
+    padding:18px 12px 40px;
+  }
+
+  .marquee{
+    padding:6px;
+    border-radius:26px;
+  }
 
   .marquee-inner{
-    padding:32px 32px 28px;
+    padding:28px 28px 24px;
+    border-radius:18px;
+  }
+
+  .marquee-bulbs{
+    inset:8px;
+  }
+
+  .marquee-bulbs::before,
+  .marquee-bulbs::after{
+    background-size:15px 15px, 15px 15px;
   }
 
   .carousel-frame{
@@ -291,7 +309,8 @@ p{
 
   .button{
     width:100%;
-    max-width:340px;
+    max-width:320px;
+    min-width:0;
   }
 
   p,
@@ -299,7 +318,6 @@ p{
   .socials{
     font-size:18px;
   }
-
 }
 </style>
 </head>
@@ -308,159 +326,154 @@ p{
 
 <div class="container">
 
-<div class="marquee">
-<div class="marquee-inner">
+  <div class="marquee">
+    <div class="marquee-inner">
 
-<div class="marquee-bulbs"></div>
+      <div class="marquee-bulbs"></div>
 
-<img class="logo" src="lips-logo.png">
+      <img class="logo" src="lips-logo.png" alt="Lips Manly Logo">
 
-<div class="tagline-main">
-<span>Vintage Swagger.</span>
-<span>Modern Hits.</span>
-<span>Lipsified.</span>
-</div>
+      <div class="tagline-main">
+        <span>Vintage Swagger.</span>
+        <span>Modern Hits.</span>
+        <span>Lipsified.</span>
+      </div>
 
-<div class="tagline-sub">
-The Emerald Coast’s Most Unique Band
-</div>
+      <div class="tagline-sub">
+        The Emerald Coast’s Most Unique Band
+      </div>
 
-<div class="venue-line">
-Live across the Gulf Coast at Red Bar, Papa Surf, Stinky's, AJ's, Juana's and more.
-</div>
+      <div class="venue-line">
+        Live across the Gulf Coast at Red Bar, Papa Surf, Stinky's, AJ's, Juana's and more.
+      </div>
 
-<div class="buttons">
-<a class="button" href="#watch-live">WATCH US LIVE</a>
-<a class="button" href="#booking">BOOK THE BAND</a>
-</div>
+    </div>
+  </div>
 
-<div class="hero-photo-wrap">
-<img class="hero-photo" src="live-photo.jpg">
-</div>
+  <div class="hero-photo-wrap">
+    <img class="hero-photo" src="live-photo.jpg" alt="Lips Manly Performing">
+  </div>
 
-</div>
-</div>
+  <div class="buttons">
+    <a class="button" href="#watch-live">WATCH US LIVE</a>
+    <a class="button" href="#booking">BOOK THE BAND</a>
+  </div>
 
-<div id="watch-live" class="section">
+  <div id="watch-live" class="section">
 
-<h2>Watch Us Live</h2>
+    <h2>Watch Us Live</h2>
 
-<div class="video-grid">
+    <div class="video-grid">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/SGkEIsW5_9s" allowfullscreen></iframe>
+      </div>
 
-<div class="video-frame">
-<iframe src="https://www.youtube.com/embed/SGkEIsW5_9s" allowfullscreen></iframe>
-</div>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/EKAA4TlO6Ys" allowfullscreen></iframe>
+      </div>
 
-<div class="video-frame">
-<iframe src="https://www.youtube.com/embed/EKAA4TlO6Ys" allowfullscreen></iframe>
-</div>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/ScDVTDk_YZA" allowfullscreen></iframe>
+      </div>
+    </div>
 
-<div class="video-frame">
-<iframe src="https://www.youtube.com/embed/ScDVTDk_YZA" allowfullscreen></iframe>
-</div>
+  </div>
 
-</div>
-</div>
+  <div class="section">
 
-<div class="section">
+    <h2>The Sound of Lips Manly</h2>
 
-<h2>The Sound of Lips Manly</h2>
+    <p>
+      Lips Manly transforms well-known (but often overlooked) pop songs from every decade into clever reinventions and mashups, backed by some of the finest musicians in the region. The result is a stylish, upbeat show that looks sharp, grooves hard, and turns familiar songs into something audiences have never quite heard before.
+    </p>
 
-<p>
-Lips Manly transforms well-known pop songs from every decade into clever reinventions and mashups, backed by some of the finest musicians in the region. The result is a stylish, upbeat show that looks sharp, grooves hard, and turns familiar songs into something audiences have never quite heard before.
-</p>
+  </div>
 
-</div>
+  <div class="section">
 
-<div class="section">
+    <h2>In the Wild</h2>
 
-<h2>In the Wild</h2>
+    <div class="carousel-frame">
+      <div class="carousel-slide active">
+        <img src="carousel-1.jpg" alt="Lips Manly live photo 1">
+      </div>
 
-<div class="carousel-frame">
+      <div class="carousel-slide">
+        <img src="carousel-2.jpg" alt="Lips Manly live photo 2">
+      </div>
 
-<div class="carousel-slide active">
-<img src="carousel-1.jpg">
-</div>
+      <div class="carousel-slide">
+        <img src="carousel-3.jpg" alt="Lips Manly live photo 3">
+      </div>
 
-<div class="carousel-slide">
-<img src="carousel-2.jpg">
-</div>
+      <div class="carousel-slide">
+        <img src="carousel-4.jpg" alt="Lips Manly live photo 4">
+      </div>
+    </div>
 
-<div class="carousel-slide">
-<img src="carousel-3.jpg">
-</div>
+  </div>
 
-<div class="carousel-slide">
-<img src="carousel-4.jpg">
-</div>
+  <div class="section">
 
-</div>
+    <h2>Upcoming Shows</h2>
 
-</div>
+    <iframe
+      src="https://calendar.google.com/calendar/embed?src=fdf280e9cf60cf870189d500b044cc3467f2fb578ef1843cc2333d8e22f327b8%40group.calendar.google.com&mode=AGENDA&showTitle=0&showTabs=0"
+      style="border:0;width:100%;height:420px">
+    </iframe>
 
-<div class="section">
+  </div>
 
-<h2>Upcoming Shows</h2>
+  <div class="section">
 
-<iframe
-src="https://calendar.google.com/calendar/embed?src=fdf280e9cf60cf870189d500b044cc3467f2fb578ef1843cc2333d8e22f327b8%40group.calendar.google.com&mode=AGENDA&showTitle=0&showTabs=0"
-style="border:0;width:100%;height:420px">
-</iframe>
+    <h2>Original Song MV: "Slime King"</h2>
 
-</div>
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/xKVqpgeGZuA" allowfullscreen></iframe>
+    </div>
 
-<div class="section">
+  </div>
 
-<h2>Original Song MV: "Slime King"</h2>
+  <div class="section">
 
-<div class="video-frame">
-<iframe src="https://www.youtube.com/embed/xKVqpgeGZuA" allowfullscreen></iframe>
-</div>
+    <h2>Hear More</h2>
 
-</div>
+    <img src="sheep-cowboy.png" style="width:100%;max-width:500px;border:3px solid var(--gold);border-radius:12px;" alt="Sheep Cowboy">
 
-<div class="section">
+    <div class="buttons" style="margin-top:18px;">
+      <a class="button" href="https://youtube.com/channel/UC5tN0mDYQeihjkV6-aM_0GA">YouTube</a>
+      <a class="button" href="https://open.spotify.com/artist/6XcAb16f9ot5D7cp96IPQ2">Spotify</a>
+    </div>
 
-<h2>Hear More</h2>
+  </div>
 
-<img src="sheep-cowboy.png" style="width:100%;max-width:500px;border:3px solid var(--gold);border-radius:12px;">
+  <div class="section">
 
-<div style="margin-top:18px">
+    <h2>Show Some Love</h2>
 
-<a class="button" href="https://youtube.com/channel/UC5tN0mDYQeihjkV6-aM_0GA">YouTube</a>
-<a class="button" href="https://open.spotify.com/artist/6XcAb16f9ot5D7cp96IPQ2">Spotify</a>
+    <p>
+      Enjoyed the show? Show some love on Venmo.<br>
+      <a class="email-link" href="https://venmo.com/lipsmanly">@lipsmanly</a>
+    </p>
 
-</div>
+  </div>
 
-</div>
+  <div id="booking" class="section">
 
-<div class="section">
+    <h2>Booking</h2>
 
-<h2>Show Some Love</h2>
+    <p>Email: <a class="email-link" href="mailto:booking@lipsmanly.com">booking@lipsmanly.com</a></p>
 
-<p>
-Enjoyed the show? Show some love on Venmo.<br>
-<a class="email-link" href="https://venmo.com/lipsmanly">@lipsmanly</a>
-</p>
+    <div class="socials">
+      Instagram: @lipsmanlyfwb<br>
+      Facebook: Gulf Coast Lips Manly
+    </div>
 
-</div>
+  </div>
 
-<div id="booking" class="section">
-
-<h2>Booking</h2>
-
-<p>Email: <a class="email-link" href="mailto:booking@lipsmanly.com">booking@lipsmanly.com</a></p>
-
-<div class="socials">
-Instagram: @lipsmanlyfwb<br>
-Facebook: Gulf Coast Lips Manly
-</div>
-
-</div>
-
-<div class="footer">
-Lips Manly • Emerald Coast
-</div>
+  <div class="footer">
+    Lips Manly • Emerald Coast
+  </div>
 
 </div>
 
@@ -469,9 +482,9 @@ const slides=document.querySelectorAll('.carousel-slide');
 let index=0;
 
 function nextSlide(){
-slides[index].classList.remove('active');
-index=(index+1)%slides.length;
-slides[index].classList.add('active');
+  slides[index].classList.remove('active');
+  index=(index+1)%slides.length;
+  slides[index].classList.add('active');
 }
 
 setInterval(nextSlide,5000);
