@@ -10,13 +10,12 @@
 
 :root{
   --bg:#090909;
-  --panel:#111111;
   --gold:#c9a24f;
   --gold-soft:#e7c980;
   --cream:#f5e8c7;
   --muted:#d6c49a;
-  --marquee-red:#7d0f12;
-  --marquee-red-dark:#58090b;
+  --marquee-red:#8d0d10;
+  --marquee-red-dark:#63080a;
   --bulb-on:#ffd84d;
   --bulb-core:#fff6b3;
 }
@@ -43,49 +42,61 @@ body{
 /* MARQUEE */
 .marquee{
   position:relative;
-  padding:34px;
+  padding:18px;
   border-radius:34px;
   background:linear-gradient(180deg, var(--marquee-red) 0%, var(--marquee-red-dark) 100%);
   box-shadow:
-    0 0 0 3px rgba(255,220,120,0.25),
+    0 0 0 2px rgba(255,220,120,0.25),
     0 18px 50px rgba(0,0,0,0.45);
 }
 
 .marquee-inner{
   position:relative;
-  border-radius:22px;
-  padding:44px 28px 40px;
+  border-radius:24px;
+  padding:42px 28px 34px;
   background:linear-gradient(180deg, #18110d 0%, #0d0b09 100%);
   box-shadow:
     inset 0 0 0 2px var(--gold),
-    inset 0 0 0 10px rgba(201,162,79,0.12);
+    inset 0 0 0 8px rgba(201,162,79,0.12);
   overflow:hidden;
 }
 
+/* continuous marquee bulbs */
 .marquee-bulbs{
   position:absolute;
-  inset:0;
+  inset:12px;
+  border-radius:18px;
   pointer-events:none;
 }
 
-.bulb{
+.marquee-bulbs::before,
+.marquee-bulbs::after{
+  content:"";
   position:absolute;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 35% 35%, var(--bulb-core) 0 28%, var(--bulb-on) 35%, #d89c1f 72%, #8c5a00 100%);
-  box-shadow:
-    0 0 4px rgba(255,232,140,0.7),
-    0 0 10px rgba(255,208,70,0.55);
-  animation:bulbPulse 1.8s infinite ease-in-out;
+  inset:0;
+  border-radius:18px;
+  pointer-events:none;
 }
 
-/* stagger timing */
-.bulb:nth-child(3n){ animation-delay:0.2s; }
-.bulb:nth-child(4n){ animation-delay:0.5s; }
-.bulb:nth-child(5n){ animation-delay:0.8s; }
-.bulb:nth-child(7n){ animation-delay:1.1s; }
+/* horizontal edges */
+.marquee-bulbs::before{
+  background:
+    radial-gradient(circle, var(--bulb-core) 0 26%, var(--bulb-on) 45%, #d89c1f 68%, transparent 72%) top center / 19px 19px repeat-x,
+    radial-gradient(circle, var(--bulb-core) 0 26%, var(--bulb-on) 45%, #d89c1f 68%, transparent 72%) bottom center / 19px 19px repeat-x;
+  filter: drop-shadow(0 0 4px rgba(255,232,140,0.85))
+          drop-shadow(0 0 10px rgba(255,208,70,0.6));
+  animation:bulbPulseA 1.9s infinite ease-in-out;
+}
+
+/* vertical edges */
+.marquee-bulbs::after{
+  background:
+    radial-gradient(circle, var(--bulb-core) 0 26%, var(--bulb-on) 45%, #d89c1f 68%, transparent 72%) left center / 19px 19px repeat-y,
+    radial-gradient(circle, var(--bulb-core) 0 26%, var(--bulb-on) 45%, #d89c1f 68%, transparent 72%) right center / 19px 19px repeat-y;
+  filter: drop-shadow(0 0 4px rgba(255,232,140,0.85))
+          drop-shadow(0 0 10px rgba(255,208,70,0.6));
+  animation:bulbPulseB 2.2s infinite ease-in-out;
+}
 
 .logo{
   max-width:480px;
@@ -132,7 +143,9 @@ body{
   letter-spacing:0.3px;
 }
 
-.buttons{margin-top:28px;}
+.buttons{
+  margin-top:28px;
+}
 
 .button{
   display:inline-block;
@@ -278,7 +291,6 @@ p{
   letter-spacing:0.4px;
 }
 
-/* animations */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(14px);}
   to{opacity:1;transform:translateY(0);}
@@ -289,21 +301,25 @@ p{
   to{transform:scale(1.04);}
 }
 
-@keyframes bulbPulse{
-  0%, 100%{
+@keyframes bulbPulseA{
+  0%,100%{
+    opacity:0.9;
     transform:scale(1);
-    box-shadow:
-      0 0 4px rgba(255,232,140,0.7),
-      0 0 10px rgba(255,208,70,0.55);
-    opacity:0.85;
   }
   50%{
-    transform:scale(1.12);
-    box-shadow:
-      0 0 7px rgba(255,240,170,1),
-      0 0 16px rgba(255,214,90,0.95),
-      0 0 28px rgba(255,214,90,0.45);
     opacity:1;
+    transform:scale(1.01);
+  }
+}
+
+@keyframes bulbPulseB{
+  0%,100%{
+    opacity:0.82;
+    transform:scale(1);
+  }
+  50%{
+    opacity:1;
+    transform:scale(1.01);
   }
 }
 
@@ -317,19 +333,27 @@ p{
 }
 
 @media (max-width: 760px){
+  .container{
+    padding:18px 12px 40px;
+  }
+
   .marquee{
-    padding:22px;
+    padding:10px;
     border-radius:26px;
   }
 
   .marquee-inner{
-    padding:34px 18px 30px;
+    padding:28px 18px 26px;
     border-radius:18px;
   }
 
-  .bulb{
-    width:9px;
-    height:9px;
+  .marquee-bulbs{
+    inset:8px;
+  }
+
+  .marquee-bulbs::before,
+  .marquee-bulbs::after{
+    background-size:15px 15px, 15px 15px;
   }
 
   .carousel-frame{
@@ -345,6 +369,11 @@ p{
   .tagline-sub{
     font-size:22px;
   }
+
+  .button{
+    width:100%;
+    max-width:420px;
+  }
 }
 </style>
 </head>
@@ -355,167 +384,7 @@ p{
 
   <div class="marquee">
     <div class="marquee-inner">
-      <div class="marquee-bulbs">
-        <!-- top -->
-        <span class="bulb" style="top:10px; left:18px;"></span>
-        <span class="bulb" style="top:10px; left:38px;"></span>
-        <span class="bulb" style="top:10px; left:58px;"></span>
-        <span class="bulb" style="top:10px; left:78px;"></span>
-        <span class="bulb" style="top:10px; left:98px;"></span>
-        <span class="bulb" style="top:10px; left:118px;"></span>
-        <span class="bulb" style="top:10px; left:138px;"></span>
-        <span class="bulb" style="top:10px; left:158px;"></span>
-        <span class="bulb" style="top:10px; left:178px;"></span>
-        <span class="bulb" style="top:10px; left:198px;"></span>
-        <span class="bulb" style="top:10px; left:218px;"></span>
-        <span class="bulb" style="top:10px; left:238px;"></span>
-        <span class="bulb" style="top:10px; left:258px;"></span>
-        <span class="bulb" style="top:10px; left:278px;"></span>
-        <span class="bulb" style="top:10px; left:298px;"></span>
-        <span class="bulb" style="top:10px; left:318px;"></span>
-        <span class="bulb" style="top:10px; left:338px;"></span>
-        <span class="bulb" style="top:10px; left:358px;"></span>
-        <span class="bulb" style="top:10px; left:378px;"></span>
-        <span class="bulb" style="top:10px; left:398px;"></span>
-        <span class="bulb" style="top:10px; left:418px;"></span>
-        <span class="bulb" style="top:10px; left:438px;"></span>
-        <span class="bulb" style="top:10px; left:458px;"></span>
-        <span class="bulb" style="top:10px; left:478px;"></span>
-        <span class="bulb" style="top:10px; left:498px;"></span>
-        <span class="bulb" style="top:10px; left:518px;"></span>
-        <span class="bulb" style="top:10px; left:538px;"></span>
-        <span class="bulb" style="top:10px; left:558px;"></span>
-        <span class="bulb" style="top:10px; left:578px;"></span>
-        <span class="bulb" style="top:10px; left:598px;"></span>
-        <span class="bulb" style="top:10px; left:618px;"></span>
-        <span class="bulb" style="top:10px; left:638px;"></span>
-        <span class="bulb" style="top:10px; left:658px;"></span>
-        <span class="bulb" style="top:10px; left:678px;"></span>
-        <span class="bulb" style="top:10px; left:698px;"></span>
-        <span class="bulb" style="top:10px; left:718px;"></span>
-        <span class="bulb" style="top:10px; left:738px;"></span>
-        <span class="bulb" style="top:10px; left:758px;"></span>
-        <span class="bulb" style="top:10px; left:778px;"></span>
-        <span class="bulb" style="top:10px; left:798px;"></span>
-        <span class="bulb" style="top:10px; left:818px;"></span>
-        <span class="bulb" style="top:10px; left:838px;"></span>
-        <span class="bulb" style="top:10px; left:858px;"></span>
-
-        <!-- bottom -->
-        <span class="bulb" style="bottom:10px; left:18px;"></span>
-        <span class="bulb" style="bottom:10px; left:38px;"></span>
-        <span class="bulb" style="bottom:10px; left:58px;"></span>
-        <span class="bulb" style="bottom:10px; left:78px;"></span>
-        <span class="bulb" style="bottom:10px; left:98px;"></span>
-        <span class="bulb" style="bottom:10px; left:118px;"></span>
-        <span class="bulb" style="bottom:10px; left:138px;"></span>
-        <span class="bulb" style="bottom:10px; left:158px;"></span>
-        <span class="bulb" style="bottom:10px; left:178px;"></span>
-        <span class="bulb" style="bottom:10px; left:198px;"></span>
-        <span class="bulb" style="bottom:10px; left:218px;"></span>
-        <span class="bulb" style="bottom:10px; left:238px;"></span>
-        <span class="bulb" style="bottom:10px; left:258px;"></span>
-        <span class="bulb" style="bottom:10px; left:278px;"></span>
-        <span class="bulb" style="bottom:10px; left:298px;"></span>
-        <span class="bulb" style="bottom:10px; left:318px;"></span>
-        <span class="bulb" style="bottom:10px; left:338px;"></span>
-        <span class="bulb" style="bottom:10px; left:358px;"></span>
-        <span class="bulb" style="bottom:10px; left:378px;"></span>
-        <span class="bulb" style="bottom:10px; left:398px;"></span>
-        <span class="bulb" style="bottom:10px; left:418px;"></span>
-        <span class="bulb" style="bottom:10px; left:438px;"></span>
-        <span class="bulb" style="bottom:10px; left:458px;"></span>
-        <span class="bulb" style="bottom:10px; left:478px;"></span>
-        <span class="bulb" style="bottom:10px; left:498px;"></span>
-        <span class="bulb" style="bottom:10px; left:518px;"></span>
-        <span class="bulb" style="bottom:10px; left:538px;"></span>
-        <span class="bulb" style="bottom:10px; left:558px;"></span>
-        <span class="bulb" style="bottom:10px; left:578px;"></span>
-        <span class="bulb" style="bottom:10px; left:598px;"></span>
-        <span class="bulb" style="bottom:10px; left:618px;"></span>
-        <span class="bulb" style="bottom:10px; left:638px;"></span>
-        <span class="bulb" style="bottom:10px; left:658px;"></span>
-        <span class="bulb" style="bottom:10px; left:678px;"></span>
-        <span class="bulb" style="bottom:10px; left:698px;"></span>
-        <span class="bulb" style="bottom:10px; left:718px;"></span>
-        <span class="bulb" style="bottom:10px; left:738px;"></span>
-        <span class="bulb" style="bottom:10px; left:758px;"></span>
-        <span class="bulb" style="bottom:10px; left:778px;"></span>
-        <span class="bulb" style="bottom:10px; left:798px;"></span>
-        <span class="bulb" style="bottom:10px; left:818px;"></span>
-        <span class="bulb" style="bottom:10px; left:838px;"></span>
-        <span class="bulb" style="bottom:10px; left:858px;"></span>
-
-        <!-- left full -->
-        <span class="bulb" style="top:30px; left:10px;"></span>
-        <span class="bulb" style="top:50px; left:10px;"></span>
-        <span class="bulb" style="top:70px; left:10px;"></span>
-        <span class="bulb" style="top:90px; left:10px;"></span>
-        <span class="bulb" style="top:110px; left:10px;"></span>
-        <span class="bulb" style="top:130px; left:10px;"></span>
-        <span class="bulb" style="top:150px; left:10px;"></span>
-        <span class="bulb" style="top:170px; left:10px;"></span>
-        <span class="bulb" style="top:190px; left:10px;"></span>
-        <span class="bulb" style="top:210px; left:10px;"></span>
-        <span class="bulb" style="top:230px; left:10px;"></span>
-        <span class="bulb" style="top:250px; left:10px;"></span>
-        <span class="bulb" style="top:270px; left:10px;"></span>
-        <span class="bulb" style="top:290px; left:10px;"></span>
-        <span class="bulb" style="top:310px; left:10px;"></span>
-        <span class="bulb" style="top:330px; left:10px;"></span>
-        <span class="bulb" style="top:350px; left:10px;"></span>
-        <span class="bulb" style="top:370px; left:10px;"></span>
-        <span class="bulb" style="top:390px; left:10px;"></span>
-        <span class="bulb" style="top:410px; left:10px;"></span>
-        <span class="bulb" style="top:430px; left:10px;"></span>
-        <span class="bulb" style="top:450px; left:10px;"></span>
-        <span class="bulb" style="top:470px; left:10px;"></span>
-        <span class="bulb" style="top:490px; left:10px;"></span>
-        <span class="bulb" style="top:510px; left:10px;"></span>
-        <span class="bulb" style="top:530px; left:10px;"></span>
-        <span class="bulb" style="top:550px; left:10px;"></span>
-        <span class="bulb" style="top:570px; left:10px;"></span>
-        <span class="bulb" style="top:590px; left:10px;"></span>
-        <span class="bulb" style="top:610px; left:10px;"></span>
-        <span class="bulb" style="top:630px; left:10px;"></span>
-        <span class="bulb" style="top:650px; left:10px;"></span>
-        <span class="bulb" style="top:670px; left:10px;"></span>
-
-        <!-- right full -->
-        <span class="bulb" style="top:30px; right:10px;"></span>
-        <span class="bulb" style="top:50px; right:10px;"></span>
-        <span class="bulb" style="top:70px; right:10px;"></span>
-        <span class="bulb" style="top:90px; right:10px;"></span>
-        <span class="bulb" style="top:110px; right:10px;"></span>
-        <span class="bulb" style="top:130px; right:10px;"></span>
-        <span class="bulb" style="top:150px; right:10px;"></span>
-        <span class="bulb" style="top:170px; right:10px;"></span>
-        <span class="bulb" style="top:190px; right:10px;"></span>
-        <span class="bulb" style="top:210px; right:10px;"></span>
-        <span class="bulb" style="top:230px; right:10px;"></span>
-        <span class="bulb" style="top:250px; right:10px;"></span>
-        <span class="bulb" style="top:270px; right:10px;"></span>
-        <span class="bulb" style="top:290px; right:10px;"></span>
-        <span class="bulb" style="top:310px; right:10px;"></span>
-        <span class="bulb" style="top:330px; right:10px;"></span>
-        <span class="bulb" style="top:350px; right:10px;"></span>
-        <span class="bulb" style="top:370px; right:10px;"></span>
-        <span class="bulb" style="top:390px; right:10px;"></span>
-        <span class="bulb" style="top:410px; right:10px;"></span>
-        <span class="bulb" style="top:430px; right:10px;"></span>
-        <span class="bulb" style="top:450px; right:10px;"></span>
-        <span class="bulb" style="top:470px; right:10px;"></span>
-        <span class="bulb" style="top:490px; right:10px;"></span>
-        <span class="bulb" style="top:510px; right:10px;"></span>
-        <span class="bulb" style="top:530px; right:10px;"></span>
-        <span class="bulb" style="top:550px; right:10px;"></span>
-        <span class="bulb" style="top:570px; right:10px;"></span>
-        <span class="bulb" style="top:590px; right:10px;"></span>
-        <span class="bulb" style="top:610px; right:10px;"></span>
-        <span class="bulb" style="top:630px; right:10px;"></span>
-        <span class="bulb" style="top:650px; right:10px;"></span>
-        <span class="bulb" style="top:670px; right:10px;"></span>
-      </div>
+      <div class="marquee-bulbs"></div>
 
       <img class="logo" src="lips-logo.png" alt="Lips Manly Logo">
 
