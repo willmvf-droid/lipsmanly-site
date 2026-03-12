@@ -15,10 +15,13 @@
   --gold-soft:#e7c980;
   --cream:#f5e8c7;
   --muted:#d6c49a;
+  --marquee-red:#7d0f12;
+  --marquee-red-dark:#58090b;
+  --bulb-on:#ffd84d;
+  --bulb-core:#fff6b3;
 }
 
 *{box-sizing:border-box;}
-
 html{scroll-behavior:smooth;}
 
 body{
@@ -37,53 +40,57 @@ body{
   padding:28px 20px 50px;
 }
 
+/* MARQUEE */
 .marquee{
   position:relative;
-  background:linear-gradient(180deg, #16110d 0%, #0e0b09 100%);
-  border:2px solid var(--gold);
-  box-shadow:0 0 0 6px rgba(201,162,79,0.14), 0 18px 50px rgba(0,0,0,0.45);
-  padding:34px 22px 36px;
+  padding:34px;
+  border-radius:34px;
+  background:linear-gradient(180deg, var(--marquee-red) 0%, var(--marquee-red-dark) 100%);
+  box-shadow:
+    0 0 0 3px rgba(255,220,120,0.25),
+    0 18px 50px rgba(0,0,0,0.45);
+}
+
+.marquee-inner{
+  position:relative;
+  border-radius:22px;
+  padding:44px 28px 40px;
+  background:linear-gradient(180deg, #18110d 0%, #0d0b09 100%);
+  box-shadow:
+    inset 0 0 0 2px var(--gold),
+    inset 0 0 0 10px rgba(201,162,79,0.12);
   overflow:hidden;
 }
 
-.marquee:before,
-.marquee:after{
-  content:"";
+.marquee-bulbs{
   position:absolute;
-  left:18px;
-  right:18px;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  inset:0;
+  pointer-events:none;
 }
 
-.marquee:before{top:16px;}
-.marquee:after{bottom:16px;}
-
-.marquee-lights,
-.marquee-lights-bottom{
-  display:grid;
-  grid-template-columns:repeat(18, 1fr);
-  gap:10px;
-}
-
-.marquee-lights{margin-bottom:22px;}
-.marquee-lights-bottom{margin-top:22px;}
-
-.marquee-lights span,
-.marquee-lights-bottom span{
+.bulb{
+  position:absolute;
   width:12px;
   height:12px;
   border-radius:50%;
-  display:block;
-  margin:0 auto;
-  background:radial-gradient(circle, #fff6cc 0%, #f1d487 45%, #a87724 100%);
-  animation:pulseLights 2.2s infinite ease-in-out alternate;
+  background:
+    radial-gradient(circle at 35% 35%, var(--bulb-core) 0 28%, var(--bulb-on) 35%, #d89c1f 72%, #8c5a00 100%);
+  box-shadow:
+    0 0 4px rgba(255,232,140,0.7),
+    0 0 10px rgba(255,208,70,0.55);
+  animation:bulbPulse 1.8s infinite ease-in-out;
 }
 
+/* stagger timing */
+.bulb:nth-child(3n){ animation-delay:0.2s; }
+.bulb:nth-child(4n){ animation-delay:0.5s; }
+.bulb:nth-child(5n){ animation-delay:0.8s; }
+.bulb:nth-child(7n){ animation-delay:1.1s; }
+
 .logo{
-  max-width:430px;
-  width:80%;
-  margin:10px auto 14px;
+  max-width:480px;
+  width:84%;
+  margin:0 auto 14px;
   display:block;
   animation:logoGlow 4s ease-in-out infinite alternate;
 }
@@ -93,7 +100,7 @@ body{
   font-size:clamp(34px, 6vw, 60px);
   line-height:1.02;
   letter-spacing:1px;
-  margin:10px auto 6px;
+  margin:8px auto 8px;
   max-width:900px;
   text-transform:uppercase;
 }
@@ -132,6 +139,7 @@ body{
   padding:14px 28px;
   margin:8px;
   border:2px solid var(--gold);
+  border-radius:999px;
   color:var(--cream);
   text-decoration:none;
   letter-spacing:2px;
@@ -152,6 +160,7 @@ body{
   width:100%;
   display:block;
   border:3px solid var(--gold);
+  border-radius:10px;
 }
 
 .hero-photo-wrap,
@@ -160,12 +169,14 @@ body{
   background:linear-gradient(180deg, rgba(201,162,79,0.08), rgba(255,255,255,0.02));
   padding:14px;
   border:1px solid rgba(201,162,79,0.35);
+  border-radius:14px;
 }
 
 .section{
   margin-top:62px;
   padding:26px 18px 32px;
   border:1px solid rgba(201,162,79,0.34);
+  border-radius:18px;
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
 }
 
@@ -188,6 +199,7 @@ h2{
 .video-frame{
   aspect-ratio:16/9;
   border:2px solid var(--gold);
+  border-radius:12px;
   overflow:hidden;
 }
 
@@ -205,6 +217,7 @@ h2{
   height:620px;
   margin:auto;
   border:3px solid var(--gold);
+  border-radius:14px;
   overflow:hidden;
   background:#090909;
 }
@@ -276,9 +289,22 @@ p{
   to{transform:scale(1.04);}
 }
 
-@keyframes pulseLights{
-  from{box-shadow:0 0 6px rgba(255,222,140,0.6);}
-  to{box-shadow:0 0 14px rgba(255,222,140,1);}
+@keyframes bulbPulse{
+  0%, 100%{
+    transform:scale(1);
+    box-shadow:
+      0 0 4px rgba(255,232,140,0.7),
+      0 0 10px rgba(255,208,70,0.55);
+    opacity:0.85;
+  }
+  50%{
+    transform:scale(1.12);
+    box-shadow:
+      0 0 7px rgba(255,240,170,1),
+      0 0 16px rgba(255,214,90,0.95),
+      0 0 28px rgba(255,214,90,0.45);
+    opacity:1;
+  }
 }
 
 @keyframes logoGlow{
@@ -291,13 +317,17 @@ p{
 }
 
 @media (max-width: 760px){
-  .marquee-lights,
-  .marquee-lights-bottom{
-    gap:6px;
+  .marquee{
+    padding:22px;
+    border-radius:26px;
   }
 
-  .marquee-lights span,
-  .marquee-lights-bottom span{
+  .marquee-inner{
+    padding:34px 18px 30px;
+    border-radius:18px;
+  }
+
+  .bulb{
     width:9px;
     height:9px;
   }
@@ -324,40 +354,176 @@ p{
 <div class="container">
 
   <div class="marquee">
+    <div class="marquee-inner">
+      <div class="marquee-bulbs">
+        <!-- top -->
+        <span class="bulb" style="top:10px; left:18px;"></span>
+        <span class="bulb" style="top:10px; left:38px;"></span>
+        <span class="bulb" style="top:10px; left:58px;"></span>
+        <span class="bulb" style="top:10px; left:78px;"></span>
+        <span class="bulb" style="top:10px; left:98px;"></span>
+        <span class="bulb" style="top:10px; left:118px;"></span>
+        <span class="bulb" style="top:10px; left:138px;"></span>
+        <span class="bulb" style="top:10px; left:158px;"></span>
+        <span class="bulb" style="top:10px; left:178px;"></span>
+        <span class="bulb" style="top:10px; left:198px;"></span>
+        <span class="bulb" style="top:10px; left:218px;"></span>
+        <span class="bulb" style="top:10px; left:238px;"></span>
+        <span class="bulb" style="top:10px; left:258px;"></span>
+        <span class="bulb" style="top:10px; left:278px;"></span>
+        <span class="bulb" style="top:10px; left:298px;"></span>
+        <span class="bulb" style="top:10px; left:318px;"></span>
+        <span class="bulb" style="top:10px; left:338px;"></span>
+        <span class="bulb" style="top:10px; left:358px;"></span>
+        <span class="bulb" style="top:10px; left:378px;"></span>
+        <span class="bulb" style="top:10px; left:398px;"></span>
+        <span class="bulb" style="top:10px; left:418px;"></span>
+        <span class="bulb" style="top:10px; left:438px;"></span>
+        <span class="bulb" style="top:10px; left:458px;"></span>
+        <span class="bulb" style="top:10px; left:478px;"></span>
+        <span class="bulb" style="top:10px; left:498px;"></span>
+        <span class="bulb" style="top:10px; left:518px;"></span>
+        <span class="bulb" style="top:10px; left:538px;"></span>
+        <span class="bulb" style="top:10px; left:558px;"></span>
+        <span class="bulb" style="top:10px; left:578px;"></span>
+        <span class="bulb" style="top:10px; left:598px;"></span>
+        <span class="bulb" style="top:10px; left:618px;"></span>
+        <span class="bulb" style="top:10px; left:638px;"></span>
+        <span class="bulb" style="top:10px; left:658px;"></span>
+        <span class="bulb" style="top:10px; left:678px;"></span>
+        <span class="bulb" style="top:10px; left:698px;"></span>
+        <span class="bulb" style="top:10px; left:718px;"></span>
+        <span class="bulb" style="top:10px; left:738px;"></span>
+        <span class="bulb" style="top:10px; left:758px;"></span>
+        <span class="bulb" style="top:10px; left:778px;"></span>
+        <span class="bulb" style="top:10px; left:798px;"></span>
+        <span class="bulb" style="top:10px; left:818px;"></span>
+        <span class="bulb" style="top:10px; left:838px;"></span>
+        <span class="bulb" style="top:10px; left:858px;"></span>
 
-    <div class="marquee-lights">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <!-- bottom -->
+        <span class="bulb" style="bottom:10px; left:18px;"></span>
+        <span class="bulb" style="bottom:10px; left:38px;"></span>
+        <span class="bulb" style="bottom:10px; left:58px;"></span>
+        <span class="bulb" style="bottom:10px; left:78px;"></span>
+        <span class="bulb" style="bottom:10px; left:98px;"></span>
+        <span class="bulb" style="bottom:10px; left:118px;"></span>
+        <span class="bulb" style="bottom:10px; left:138px;"></span>
+        <span class="bulb" style="bottom:10px; left:158px;"></span>
+        <span class="bulb" style="bottom:10px; left:178px;"></span>
+        <span class="bulb" style="bottom:10px; left:198px;"></span>
+        <span class="bulb" style="bottom:10px; left:218px;"></span>
+        <span class="bulb" style="bottom:10px; left:238px;"></span>
+        <span class="bulb" style="bottom:10px; left:258px;"></span>
+        <span class="bulb" style="bottom:10px; left:278px;"></span>
+        <span class="bulb" style="bottom:10px; left:298px;"></span>
+        <span class="bulb" style="bottom:10px; left:318px;"></span>
+        <span class="bulb" style="bottom:10px; left:338px;"></span>
+        <span class="bulb" style="bottom:10px; left:358px;"></span>
+        <span class="bulb" style="bottom:10px; left:378px;"></span>
+        <span class="bulb" style="bottom:10px; left:398px;"></span>
+        <span class="bulb" style="bottom:10px; left:418px;"></span>
+        <span class="bulb" style="bottom:10px; left:438px;"></span>
+        <span class="bulb" style="bottom:10px; left:458px;"></span>
+        <span class="bulb" style="bottom:10px; left:478px;"></span>
+        <span class="bulb" style="bottom:10px; left:498px;"></span>
+        <span class="bulb" style="bottom:10px; left:518px;"></span>
+        <span class="bulb" style="bottom:10px; left:538px;"></span>
+        <span class="bulb" style="bottom:10px; left:558px;"></span>
+        <span class="bulb" style="bottom:10px; left:578px;"></span>
+        <span class="bulb" style="bottom:10px; left:598px;"></span>
+        <span class="bulb" style="bottom:10px; left:618px;"></span>
+        <span class="bulb" style="bottom:10px; left:638px;"></span>
+        <span class="bulb" style="bottom:10px; left:658px;"></span>
+        <span class="bulb" style="bottom:10px; left:678px;"></span>
+        <span class="bulb" style="bottom:10px; left:698px;"></span>
+        <span class="bulb" style="bottom:10px; left:718px;"></span>
+        <span class="bulb" style="bottom:10px; left:738px;"></span>
+        <span class="bulb" style="bottom:10px; left:758px;"></span>
+        <span class="bulb" style="bottom:10px; left:778px;"></span>
+        <span class="bulb" style="bottom:10px; left:798px;"></span>
+        <span class="bulb" style="bottom:10px; left:818px;"></span>
+        <span class="bulb" style="bottom:10px; left:838px;"></span>
+        <span class="bulb" style="bottom:10px; left:858px;"></span>
+
+        <!-- left -->
+        <span class="bulb" style="top:30px; left:10px;"></span>
+        <span class="bulb" style="top:50px; left:10px;"></span>
+        <span class="bulb" style="top:70px; left:10px;"></span>
+        <span class="bulb" style="top:90px; left:10px;"></span>
+        <span class="bulb" style="top:110px; left:10px;"></span>
+        <span class="bulb" style="top:130px; left:10px;"></span>
+        <span class="bulb" style="top:150px; left:10px;"></span>
+        <span class="bulb" style="top:170px; left:10px;"></span>
+        <span class="bulb" style="top:190px; left:10px;"></span>
+        <span class="bulb" style="top:210px; left:10px;"></span>
+        <span class="bulb" style="top:230px; left:10px;"></span>
+        <span class="bulb" style="top:250px; left:10px;"></span>
+        <span class="bulb" style="top:270px; left:10px;"></span>
+        <span class="bulb" style="top:290px; left:10px;"></span>
+        <span class="bulb" style="top:310px; left:10px;"></span>
+        <span class="bulb" style="top:330px; left:10px;"></span>
+        <span class="bulb" style="top:350px; left:10px;"></span>
+        <span class="bulb" style="top:370px; left:10px;"></span>
+        <span class="bulb" style="top:390px; left:10px;"></span>
+        <span class="bulb" style="top:410px; left:10px;"></span>
+        <span class="bulb" style="top:430px; left:10px;"></span>
+        <span class="bulb" style="top:450px; left:10px;"></span>
+        <span class="bulb" style="top:470px; left:10px;"></span>
+        <span class="bulb" style="top:490px; left:10px;"></span>
+
+        <!-- right -->
+        <span class="bulb" style="top:30px; right:10px;"></span>
+        <span class="bulb" style="top:50px; right:10px;"></span>
+        <span class="bulb" style="top:70px; right:10px;"></span>
+        <span class="bulb" style="top:90px; right:10px;"></span>
+        <span class="bulb" style="top:110px; right:10px;"></span>
+        <span class="bulb" style="top:130px; right:10px;"></span>
+        <span class="bulb" style="top:150px; right:10px;"></span>
+        <span class="bulb" style="top:170px; right:10px;"></span>
+        <span class="bulb" style="top:190px; right:10px;"></span>
+        <span class="bulb" style="top:210px; right:10px;"></span>
+        <span class="bulb" style="top:230px; right:10px;"></span>
+        <span class="bulb" style="top:250px; right:10px;"></span>
+        <span class="bulb" style="top:270px; right:10px;"></span>
+        <span class="bulb" style="top:290px; right:10px;"></span>
+        <span class="bulb" style="top:310px; right:10px;"></span>
+        <span class="bulb" style="top:330px; right:10px;"></span>
+        <span class="bulb" style="top:350px; right:10px;"></span>
+        <span class="bulb" style="top:370px; right:10px;"></span>
+        <span class="bulb" style="top:390px; right:10px;"></span>
+        <span class="bulb" style="top:410px; right:10px;"></span>
+        <span class="bulb" style="top:430px; right:10px;"></span>
+        <span class="bulb" style="top:450px; right:10px;"></span>
+        <span class="bulb" style="top:470px; right:10px;"></span>
+        <span class="bulb" style="top:490px; right:10px;"></span>
+      </div>
+
+      <img class="logo" src="lips-logo.png" alt="Lips Manly Logo">
+
+      <div class="tagline-main">
+        <span>Vintage Swagger.</span>
+        <span>Modern Hits.</span>
+        <span>Lipsified.</span>
+      </div>
+
+      <div class="tagline-sub">
+        The Emerald Coast’s Most Unique Band
+      </div>
+
+      <div class="venue-line">
+        Live across the Gulf Coast at Red Bar, Papa Surf, Stinky's, AJ's, Juana's and more.
+      </div>
+
+      <div class="buttons">
+        <a class="button" href="#watch-live">WATCH US LIVE</a>
+        <a class="button" href="#booking">BOOK THE BAND</a>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="live-photo.jpg" alt="Lips Manly Performing">
+      </div>
     </div>
-
-    <img class="logo" src="lips-logo.png" alt="Lips Manly Logo">
-
-    <div class="tagline-main">
-      <span>Vintage Swagger.</span>
-      <span>Modern Hits.</span>
-      <span>Lipsified.</span>
-    </div>
-
-    <div class="tagline-sub">
-      The Emerald Coast’s Most Unique Band
-    </div>
-
-    <div class="venue-line">
-      Live across the Gulf Coast at Red Bar, Papa Surf, Stinky's, AJ's, Juana's and more.
-    </div>
-
-    <div class="buttons">
-      <a class="button" href="#watch-live">WATCH US LIVE</a>
-      <a class="button" href="#booking">BOOK THE BAND</a>
-    </div>
-
-    <div class="hero-photo-wrap">
-      <img class="hero-photo" src="live-photo.jpg" alt="Lips Manly Performing">
-    </div>
-
-    <div class="marquee-lights-bottom">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
-
   </div>
 
   <div id="watch-live" class="section">
@@ -380,7 +546,6 @@ p{
 
   <div class="section">
     <h2>The Sound of Lips Manly</h2>
-
     <p>
       Lips Manly transforms well-known (but often overlooked) pop songs from every decade into clever reinventions and mashups, backed by some of the finest musicians in the region. Weaving original music into the performance as well, frontman Lips Manly (Will Corbin) spent fifteen years honing his craft in the Bangkok music scene before bringing the act back to the Gulf Coast. The result is a stylish, upbeat show that looks sharp, grooves hard, and turns familiar songs into something audiences have never quite heard before.
     </p>
@@ -388,20 +553,16 @@ p{
 
   <div class="section">
     <h2>In the Wild</h2>
-
     <div class="carousel-frame">
       <div class="carousel-slide active">
         <img src="carousel-1.jpg" alt="Lips Manly live photo 1">
       </div>
-
       <div class="carousel-slide">
         <img src="carousel-2.jpg" alt="Lips Manly live photo 2">
       </div>
-
       <div class="carousel-slide">
         <img src="carousel-3.jpg" alt="Lips Manly live photo 3">
       </div>
-
       <div class="carousel-slide">
         <img src="carousel-4.jpg" alt="Lips Manly live photo 4">
       </div>
@@ -410,8 +571,7 @@ p{
 
   <div class="section">
     <h2>Upcoming Shows</h2>
-
-    <div style="max-width:760px;height:430px;margin:auto;border:2px solid var(--gold);overflow:hidden;background:#0e0b09;box-shadow:0 0 0 4px rgba(201,162,79,0.18);position:relative;">
+    <div style="max-width:760px;height:430px;margin:auto;border:2px solid var(--gold);border-radius:12px;overflow:hidden;background:#0e0b09;box-shadow:0 0 0 4px rgba(201,162,79,0.18);position:relative;">
       <iframe
         src="https://calendar.google.com/calendar/embed?src=fdf280e9cf60cf870189d500b044cc3467f2fb578ef1843cc2333d8e22f327b8%40group.calendar.google.com&mode=AGENDA&showTitle=0&showTabs=0&showCalendars=0&showPrint=0"
         style="border:0;width:100%;height:520px;margin-top:-45px;margin-bottom:-55px;display:block;"
@@ -423,7 +583,6 @@ p{
 
   <div class="section">
     <h2>Original Song MV: "Slime King"</h2>
-
     <div class="video-frame">
       <iframe src="https://www.youtube.com/embed/xKVqpgeGZuA" allowfullscreen></iframe>
     </div>
@@ -431,10 +590,8 @@ p{
 
   <div class="section">
     <h2>Hear More</h2>
-
     <div class="weird-photo-wrap">
       <img class="weird-photo" src="sheep-cowboy.png" alt="Lips Manly seated on a sheep with ukulele">
-
       <div style="display:flex;justify-content:center;gap:18px;margin-top:18px;flex-wrap:wrap;">
         <a class="button" href="https://youtube.com/channel/UC5tN0mDYQeihjkV6-aM_0GA" target="_blank" rel="noopener">YouTube</a>
         <a class="button" href="https://open.spotify.com/artist/6XcAb16f9ot5D7cp96IPQ2" target="_blank" rel="noopener">Spotify</a>
@@ -444,20 +601,15 @@ p{
 
   <div class="section">
     <h2>Show Some Love</h2>
-
     <p>
       Enjoyed the show? Show some love on Venmo.<br>
-      <a class="email-link" href="https://venmo.com/lipsmanly" target="_blank" rel="noopener">
-        @lipsmanly
-      </a>
+      <a class="email-link" href="https://venmo.com/lipsmanly" target="_blank" rel="noopener">@lipsmanly</a>
     </p>
   </div>
 
   <div id="booking" class="section">
     <h2>Booking</h2>
-
     <p>Email: <a class="email-link" href="mailto:booking@lipsmanly.com">booking@lipsmanly.com</a></p>
-
     <div class="socials">
       Instagram: @lipsmanlyfwb<br>
       Facebook: Gulf Coast Lips Manly
