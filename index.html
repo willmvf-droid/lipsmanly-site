@@ -46,6 +46,19 @@ body{
   overflow:hidden;
 }
 
+.marquee:before,
+.marquee:after{
+  content:"";
+  position:absolute;
+  left:18px;
+  right:18px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.marquee:before{top:16px;}
+.marquee:after{bottom:16px;}
+
 .marquee-lights,
 .marquee-lights-bottom{
   display:grid;
@@ -231,6 +244,11 @@ p{
   border-bottom:1px solid rgba(201,162,79,0.5);
 }
 
+.email-link:hover{
+  color:var(--gold-soft);
+  border-bottom:1px solid var(--gold);
+}
+
 .footer{
   margin-top:40px;
   font-size:18px;
@@ -350,7 +368,7 @@ p{
     <h2>The Sound of Lips Manly</h2>
 
     <p>
-      Lips Manly transforms well-known pop songs from every decade into clever reinventions and mashups, backed by some of the finest musicians in the region.
+      Lips Manly transforms well-known (but often overlooked) pop songs from every decade into clever reinventions and mashups, backed by some of the finest musicians in the region. Weaving original music into the performance as well, frontman Lips Manly (Will Corbin) spent fifteen years honing his craft in the Bangkok music scene before bringing the act back to the Gulf Coast. The result is a stylish, upbeat show that looks sharp, grooves hard, and turns familiar songs into something audiences have never quite heard before.
     </p>
   </div>
 
