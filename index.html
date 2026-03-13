@@ -205,7 +205,143 @@ h2{
   text-transform:uppercase;
 }
 
-/* rest of CSS unchanged ... */
+.video-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+  max-width:1000px;
+  margin:auto;
+}
+
+.video-frame{
+  aspect-ratio:16/9;
+  border:2px solid var(--gold);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.video-frame iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* CAROUSEL */
+
+.carousel-frame{
+  position:relative;
+  width:100%;
+  max-width:860px;
+  height:600px;
+  margin:auto;
+  border:3px solid var(--gold);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.carousel-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity 1s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.carousel-slide.active{
+  opacity:1;
+}
+
+.carousel-slide img{
+  max-width:100%;
+  max-height:100%;
+}
+
+/* TEXT */
+
+p{
+  font-size:20px;
+  line-height:1.55;
+  margin:10px auto;
+  max-width:760px;
+}
+
+.socials{
+  margin-top:25px;
+  font-size:20px;
+  line-height:1.5;
+}
+
+.email-link{
+  color:var(--cream);
+  text-decoration:none;
+}
+
+.footer{
+  margin-top:40px;
+  font-size:16px;
+  color:#c7b88a;
+}
+
+/* MOBILE */
+
+@media (max-width:760px){
+
+  .container{
+    padding:18px 12px 40px;
+  }
+
+  .marquee{
+    padding:8px;
+    border-radius:26px;
+  }
+
+  .marquee-inner{
+    padding:20px 24px 54px;
+    border-radius:18px;
+  }
+
+  .marquee-bulbs{
+    inset:8px;
+  }
+
+  .marquee-bulbs::before,
+  .marquee-bulbs::after{
+    background-size:15px 15px, 15px 15px;
+  }
+
+  .logo{
+    width:74%;
+    max-width:300px;
+    margin-bottom:8px;
+  }
+
+  .tagline-main{
+    max-width:430px;
+    margin-bottom:14px;
+  }
+
+  .tagline-sub{
+    max-width:360px;
+    margin-bottom:16px;
+  }
+
+  .venue-line{
+    max-width:340px;
+    font-size:17px;
+  }
+
+  .carousel-frame{
+    height:420px;
+  }
+
+  .button{
+    width:100%;
+    max-width:320px;
+    min-width:0;
+  }
+}
 </style>
 </head>
 
@@ -249,7 +385,68 @@ h2{
     <a class="button" href="#hear">HEAR MORE</a>
   </div>
 
-  <!-- rest unchanged -->
+  <div class="section">
+    <h2>Watch Us Live</h2>
+
+    <div class="video-grid">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/SGkEIsW5_9s" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/EKAA4TlO6Ys" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/ScDVTDk_YZA" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Sound of Lips Manly</h2>
+
+    <p>
+      Lips Manly transforms well-known pop songs from every decade into clever reinventions and mashups, backed by some of the finest musicians in the region. The result is a stylish, upbeat show that looks sharp, grooves hard, and turns familiar songs into something audiences have never quite heard before.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>In the Wild</h2>
+
+    <div class="carousel-frame">
+      <div class="carousel-slide active">
+        <img src="carousel-1.jpg" alt="Lips Manly live photo 1">
+      </div>
+
+      <div class="carousel-slide">
+        <img src="carousel-2.jpg" alt="Lips Manly live photo 2">
+      </div>
+
+      <div class="carousel-slide">
+        <img src="carousel-3.jpg" alt="Lips Manly live photo 3">
+      </div>
+
+      <div class="carousel-slide">
+        <img src="carousel-4.jpg" alt="Lips Manly live photo 4">
+      </div>
+    </div>
+  </div>
+
+  <div id="shows" class="section">
+    <h2>Upcoming Shows</h2>
+
+   <div data-tockify-component="calendar" data-tockify-calendar="lipsmanlyshows"></div>
+<script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>
+  </div>
+
+  <div class="section">
+    <h2>Original Song MV: "Slime King"</h2>
+
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/xKVqpgeGZuA" allowfullscreen></iframe>
+    </div>
+  </div>
 
   <div id="hear" class="section">
     <h2>Hear More</h2>
@@ -262,7 +459,23 @@ h2{
     </div>
   </div>
 
-<!-- rest of page unchanged -->
+  <div id="booking" class="section">
+    <h2>Booking</h2>
+
+  <p>
+Email: <a class="email-link" href="mailto:booking@lipsmanly.com">booking@lipsmanly.com</a><br>
+Text or Call: <a class="email-link" href="tel:8504999913"><span>850</span>-<span>499</span>-<span>9913</span></a>
+</p>
+
+<div class="socials">
+Instagram: <a class="email-link" href="https://www.instagram.com/lipsmanlyfwb/" target="_blank">@lipsmanlyfwb</a><br>
+Facebook: <a class="email-link" href="https://www.facebook.com/gulfcoastlipsmanly" target="_blank">Gulf Coast Lips Manly</a>
+</div>
+  </div>
+
+  <div class="footer">
+    Lips Manly • Emerald Coast
+  </div>
 
 </div>
 
